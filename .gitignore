@@ -1,0 +1,20 @@
+# Ignore Python bytecode files
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Ignore virtual environment
+venv/
+
+# Ignore API keys file (if you use an environment file for API keys)
+.env
+
+# Ignore Streamlit config file (if exists)
+.streamlit/
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Ignore log files
+*.log
