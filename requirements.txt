@@ -1,7 +1,7 @@
 requests
 pandas==2.2.3
 geopandas==1.0.1
-folium==0.12.1
+folium>=0.13,<0.15.0
 streamlit==1.42.0
 python-dotenv==0.21.0
 streamlit_folium==0.24.0
