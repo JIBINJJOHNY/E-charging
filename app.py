@@ -34,8 +34,6 @@ try:
 
     if response.text.strip():  # Check if the response is not empty
         data = response.json()
-        st.write("Data fetched successfully!")
-        st.write(data[:5])  # Print first 5 results for preview
 
     else:
         st.write("No data available or empty response received!")
@@ -68,6 +66,25 @@ gdf = gpd.GeoDataFrame(
     crs="EPSG:4326"  # WGS84 coordinate system
 )
 
+# Create a list of unique states for the dropdown menu
+states = sorted(df['State'].unique())
+selected_state = st.sidebar.selectbox('Select a State', ['All'] + states)
+
+# Filter the DataFrame based on the selected state
+if selected_state != 'All':
+    filtered_gdf = gdf[gdf['State'] == selected_state]
+else:
+    filtered_gdf = gdf
+
+# Set dynamic title based on selected state
+if selected_state == 'All':
+    map_title = 'E-Charging Stations in Germany'
+else:
+    map_title = f'E-Charging Stations in {selected_state}, Germany'
+
+# Display the dynamic title above the map
+st.title(map_title)  # This is where the dynamic title is set in Streamlit
+
 # Create a Folium map centered on Germany
 map_center = [51.1657, 10.4515]  # Center of Germany
 m = folium.Map(location=map_center, zoom_start=6, tiles='CartoDB dark_matter')
@@ -75,8 +92,8 @@ m = folium.Map(location=map_center, zoom_start=6, tiles='CartoDB dark_matter')
 # Add marker clusters
 charging_cluster = MarkerCluster(name='E-Charging Stations').add_to(m)
 
-# Add e-charging stations to the map
-for idx, row in gdf.iterrows():
+# Add e-charging stations to the map (filtered by state)
+for idx, row in filtered_gdf.iterrows():
     popup_content = f"""
     <strong>Station:</strong> {row['Name']}<br>
     <strong>Operator:</strong> {row['Operator']}<br>
@@ -91,12 +108,6 @@ for idx, row in gdf.iterrows():
 
 # Add layer control
 folium.LayerControl(collapsed=False).add_to(m)
-
-# Add title
-title_html = '''
-             <h3 align="center" style="font-size:16px"><b>E-Charging Stations in Germany</b></h3>
-             '''
-m.get_root().html.add_child(folium.Element(title_html))
 
 # Display the map in Streamlit
 st_folium(m, width=700)

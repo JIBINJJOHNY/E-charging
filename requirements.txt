@@ -136,6 +136,7 @@ pystac @ file:///home/conda/feedstock_root/build_artifacts/pystac_1738059657330/
 pystac-client @ file:///home/conda/feedstock_root/build_artifacts/pystac-client_1734440638189/work
 python-box @ file:///Users/runner/miniforge3/conda-bld/python-box_1737128946952/work
 python-dateutil @ file:///home/conda/feedstock_root/build_artifacts/python-dateutil_1733215673016/work
+python-dotenv==1.0.1
 python-json-logger @ file:///home/conda/feedstock_root/build_artifacts/python-json-logger_1677079630776/work
 pytz @ file:///home/conda/feedstock_root/build_artifacts/pytz_1738317518727/work
 PyYAML @ file:///Users/runner/miniforge3/conda-bld/pyyaml_1737454708382/work
